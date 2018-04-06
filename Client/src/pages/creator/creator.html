@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      IA Creator
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h1>Creation de reseau neuronal</h1>
+  <div padding>
+    <button ion-button color="clear"  (click)="save()" float-right>Enregistrer</button>
+  <ion-segment [(ngModel)]="network">
+    <ion-segment-button value="inputs">
+      Entrées
+    </ion-segment-button>
+    <ion-segment-button value="outputs">
+      Sorties
+    </ion-segment-button>
+  </ion-segment>
+  </div>
+  <div [ngSwitch]="network">
+    <ion-list *ngSwitchCase="'inputs'">
+      <button ion-button color="clear" (click)="newInput()">+Nouveau</button>
+      <ion-item-group *ngFor="let input of inputs">
+          <ion-item-divider color="light">{{input.titre}}</ion-item-divider>
+          <ion-item>
+            <ion-label color="primary">Titre</ion-label>
+            <ion-input placeholder="Question posée pour cette entrée" [(ngModel)]="input.titre">{{input.titre}}</ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label>Type</ion-label>
+            <ion-select [(ngModel)]="input.type">
+              <ion-option value="number">Nombre</ion-option>
+              <ion-option value="text">Texte</ion-option>
+            </ion-select>
+          </ion-item>
+          <div  [ngSwitch]="input.type">
+            <ion-item>
+              <ion-label color="primary" *ngSwitchCase="'text'">Mots</ion-label>
+              <ion-input placeholder="Mots clés" *ngSwitchCase="'text'" [(ngModel)]="input.words" type="text">{{input.words}}</ion-input>
+            </ion-item>
+          </div>
+        </ion-item-group>
+    </ion-list>
+    <ion-list *ngSwitchCase="'outputs'">
+      <button ion-button color="clear" (click)="newClass()">+Nouveau</button>
+      <ion-item-group *ngFor="let output of outputs">
+        <ion-item-divider color="light">{{output.titre}}</ion-item-divider>
+        <ion-item>
+          <ion-label color="primary">Titre</ion-label>
+          <ion-input placeholder="Nom donné à ce resultat" [(ngModel)]="output.titre">{{output.titre}}</ion-input>
+        </ion-item>
+      </ion-item-group>
+    </ion-list>
+  </div>
+</ion-content>

@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      IA Creator
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <h1>Bienvenue sur le Client IA</h1>
+  <div *ngIf="needServer">
+  	<p>Merci d'entrer les informations du serveur</p>
+  	<ion-item>
+    	<ion-label floating>IP</ion-label>
+    	<ion-input type="text" value="" [(ngModel)]="servIp"></ion-input>
+  	</ion-item>
+  	<ion-item>
+    	<ion-label floating>Port</ion-label>
+    	<ion-input type="text" value="" [(ngModel)]="servPort"></ion-input>
+  	</ion-item>
+  	<button ion-button color="validate" round (click)="servTest()">Valider</button>
+   </div>
+   <div *ngIf="!needServer">
+   		<button ion-button color="clear"  (click)="addNetwork()" float-right>+Nouveau</button>
+   		<ion-item-group *ngFor="let network of singleton.networks; let i = index" padding>
+          <ion-item>
+          	<ion-label text-center>{{network.titre}}</ion-label>
+          </ion-item>
+          <ion-segment color="primary">
+    		<ion-segment-button value="sample" (ionSelect)="addSamples(i)">
+      			Ajout de données
+    		</ion-segment-button>
+    		<ion-segment-button value="test" (ionSelect)="test(i)">
+      			Tester
+    		</ion-segment-button>
+  		  </ion-segment>
+      </ion-item-group>
+   </div>
+</ion-content>
